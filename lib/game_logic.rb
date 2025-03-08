@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class GameLogic
   attr_accessor :historic_guesses, :guesses_remaining
   attr_reader :word, :discarded_letters, :word_strip
@@ -12,9 +14,13 @@ class GameLogic
     @word_strip = Array.new(@word.length, '_')
   end
 
-  def generate_word_strip(guess)
+  def process_letters(guess)  
     match = letter_in_word_index(guess)
-    match.is_a?(Integer) ? @word_strip[match] = guess : @discarded_letters << guess
+    if match.empty?
+      @discarded_letters << guess
+    else
+      match.each { |index| @word_strip[index] = guess }
+    end
     @word_strip
   end
 
@@ -25,19 +31,16 @@ class GameLogic
   def check_win
     !@word_strip.include?('_')
   end
-  
-  def decrease_guess_count
-    @guesses_remaining -= 1
-  end
 
-  def generate_discarded_letters(guess)
-    if disclarded_letter = letter_in_word_index(word, guess).is_nil?
-      @discarded_letters << disclarded_letter
-    end
+  def decrease_guess_count(guess)
+    @guesses_remaining -= 1 unless @word.include?(guess)
   end
 
   def letter_in_word_index(guess)
-    @word.index(guess) || []
+    indices = []
+    @word.chars.each_with_index do |letter, index|
+      indices << index if letter == guess
+    end
+    indices
   end
-
 end
