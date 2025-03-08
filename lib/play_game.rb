@@ -1,6 +1,7 @@
 require_relative 'human_player'
 require_relative 'dictionary'
 require_relative 'game_logic'
+require_relative 'hangman_graphic'
 require_relative 'displayable'
 
 class PlayGame
@@ -13,27 +14,25 @@ class PlayGame
 
   def play
     until @logic.guesses_remaining == 0 || @logic.check_win
-      loop do
-        p "DEBUG #{@logic.word}"
         @human.player_guess_prompt(@logic.historic_guesses)
-        @logic.generate_word_strip(@human.guess)
-        adjust_counters
-        p @logic.guesses_remaining
-        game_display(@logic.word_strip, @logic.discarded_letters)
-      end
-      end_game
+        @logic.process_letters(@human.guess)
+        adjust_counters(@human.guess)
+        game_display(@logic.word_strip, @logic.discarded_letters, @logic.guesses_remaining)
     end
+      end_game
   end
 
-  def adjust_counters
-    @logic.decrease_guess_count
-    @logic.add_historic_guesses(@human.guess)
+  def adjust_counters(guess)
+    @logic.decrease_guess_count(guess)
+    @logic.add_historic_guesses(guess)
   end
 
   def end_game
     if @logic.guesses_remaining == 0
       lose_game_ui
     else win_game_ui
+    end
+  end
 end
 
 g = PlayGame.new
