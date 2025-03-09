@@ -1,3 +1,5 @@
+# Geneates hangman based on guess number
+
 module HangmanGraphic
   def unfurl_hangman(guesses_remaining)
     case guesses_remaining

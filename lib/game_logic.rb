@@ -1,10 +1,17 @@
 # frozen_string_literal: true
 
+# Generates word to be guessed 
+# Defines win conditions 
+# Matches letters and processes discarded ones 
+# Defines counter behaviour 
+# Saves following state: discarded_letters, word, historic_guesses, remaining_guesses, word_strip (updates with correctly guessed letters)
+
 class GameLogic
   attr_accessor :historic_guesses, :guesses_remaining
   attr_reader :word, :discarded_letters, :word_strip
 
   include Dictionary
+  include BasicSerializable
 
   def initialize
     @word = dictionary_array.sample

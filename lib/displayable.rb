@@ -1,3 +1,5 @@
+# Generates and coordinates the display for word being guessed (word strip), discarded letters and the hangman.
+
 module Displayable
   include HangmanGraphic
 
@@ -20,7 +22,7 @@ module Displayable
     puts "Well done you guessed the word! :D "
   end
 
-  def lose_game_ui
-    puts "No luck this time! :("
+  def lose_game_ui(word)
+    puts "No luck this time! :( The answer was #{word}."
   end
 end

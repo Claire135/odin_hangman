@@ -37,6 +37,7 @@ PLATFORMS
 
 DEPENDENCIES
   csv (~> 3.3)
+  json (~> 2.10)
   rubocop (~> 1.73)
 
 BUNDLED WITH
