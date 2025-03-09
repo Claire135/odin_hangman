@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-# Generates word to be guessed 
-# Defines win conditions 
-# Matches letters and processes discarded ones 
-# Defines counter behaviour 
+# Generates word to be guessed
+# Defines win conditions
+# Matches letters and processes discarded ones
+# Defines counter behaviour
 # Saves following state: discarded_letters, word, historic_guesses, remaining_guesses, word_strip (updates with correctly guessed letters)
 
 class GameLogic
@@ -21,7 +21,7 @@ class GameLogic
     @word_strip = Array.new(@word.length, '_')
   end
 
-  def process_letters(guess)  
+  def process_letters(guess)
     match = letter_in_word_index(guess)
     if match.empty?
       @discarded_letters << guess

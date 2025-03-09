@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Launches the game
 
 require_relative 'play_game'

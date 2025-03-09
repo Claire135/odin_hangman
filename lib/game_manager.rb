@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Saves and loads games based on prompts from game menu
 require 'json'
 
@@ -5,10 +7,10 @@ class GameManager
   include BasicSerializable
   include GameMenu
 
-  SAVE_FILE = "save_game.json"
+  SAVE_FILE = 'save_game.json'
 
   def self.save(game)
-    File.open(SAVE_FILE, "w") { |file| file.write(game.serialize)}
+    File.open(SAVE_FILE, 'w') { |file| file.write(game.serialize) }
     puts 'Game Saved!'
   end
 
@@ -17,9 +19,6 @@ class GameManager
 
     saved_data = File.read(SAVE_FILE)
     game.unserialize(saved_data)
-    puts "Game loaded!"
+    puts 'Game loaded!'
   end
 end
-
-
-

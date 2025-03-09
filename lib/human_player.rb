@@ -12,24 +12,26 @@ class HumanPlayer
 
   def player_guess_prompt(historic_guesses)
     loop do
-      puts 'Guess a letter!'
-      @guess = gets.chomp.downcase
+      @guess = prompt_guess
 
-      unless valid_guess?
-        puts 'Please enter a valid letter (in the English alphabet!).'
-        next
-      end
-
-      if already_guessed?(historic_guesses)
-        puts "You've already guessed that letter, pick another one!"
-        next
-      end
-
-      return @guess
+      return @guess if valid_new_guess?(historic_guesses)
     end
   end
 
   private
+
+  def prompt_guess
+    puts 'Guess a letter!'
+    gets.chomp.downcase
+  end
+
+  def valid_new_guess?(historic_guesses)
+    return true if valid_guess? && !already_guessed?(historic_guesses)
+
+    puts 'Invalid guess. Please enter a valid letter!' unless valid_guess?
+    puts "You've already guessed that letter, pick another one!" if already_guessed?(historic_guesses)
+    false
+  end
 
   def valid_guess?
     ('a'..'z').include?(@guess)

@@ -1,9 +1,10 @@
+# frozen_string_literal: true
+
 # Serializes and unserializes game data
 
 require 'json'
 
 module BasicSerializable
-
   @@serializer = JSON
 
   def serialize
@@ -17,7 +18,7 @@ module BasicSerializable
 
   def unserialize(string)
     obj = @@serializer.parse(string)
-    obj.keys.each do |key|
+    obj.each_key do |key|
       instance_variable_set(key, obj[key])
     end
   end
